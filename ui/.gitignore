@@ -1,0 +1,9 @@
+db-prod.db
+db-test.db
+log-prod.txt
+log-test.txt
+
+chroma_db/
+dataset/
+__pycache__/
+venv/

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>RoseChat</title>
+</head>
+
+<style>
+    /* Colors taken from Rose-Hulman website to match branding  */
+    :root {
+        --color-red-primary: #800000;
+        --color-red-secondary: #be0b26;
+        --color-red-dark: #4b1417;
+        --color-grey-medium: #707780;
+        --color-grey-light-opaque: rgba(112 119 128 / 40%);
+        --color-grey-medium-opaque: rgba(112 119 128 / 90%);
+        --color-grey-cool: #ADB3B8;
+        --color-grey-slate: #364451;
+        --color-grey-dark: #414141;
+        --color-black: #000000;
+        --color-white: #FFFFFF;
+        --shadow-light: rgba(0 0 0 / 15%);
+        --shadow-medium: rgba(0 0 0 / 30%);
+        --shadow-dark: rgba(0 0 0 / 60%);
+    }
+    
+    html {
+        font-family: open-sans, sans-serif;
+        height: 100%;
+        width: 100%;
+    }
+
+    html,
+    body,
+    h1,
+    p {
+        margin: 0;
+    }
+
+    body {
+        width: 100%;
+        max-width: 600px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    #messageListWrapper {
+        height: 100%;
+        padding: 0 16px;
+        overflow-y: auto;
+    }
+
+    #messageList {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .message {
+        padding: 8px;
+        border-radius: 8px;
+    }
+    
+    .my-message {
+        align-self: end;
+        background-color: var(--color-red-primary);
+        color: white;
+    }
+
+    .other-message {
+        align-self: start;
+        background-color: #eee;
+        color: black;
+    }
+
+    #messageInput {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--color-grey-slate);
+        box-sizing: border-box;
+        font-size: 1rem;
+    }
+
+    #messageInput:focus {
+        outline: none;
+        box-shadow: 0 2px 8px -2px var(--color-red-secondary);
+    }
+
+    #sendButton {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: none;
+        background-color: var(--color-red-primary);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    #sendButton:hover {
+        background-color: var(--color-red-secondary);
+    }
+</style>
+
+<body>
+    <h1 style="text-align: center; padding: 16px;">RoseChat</h1>
+    <div id="messageListWrapper">
+        <div id="messageList"></div>
+    </div>
+    <div style="display: flex; flex-direction: row; padding: 16px 16px 8px 16px; gap: 8px;">
+        <input type="text" id="messageInput" placeholder="Type your message">
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+    </div>
+    <p style="text-align: center; color: #555; font-size: 0.9rem; margin-bottom: 8px;">Messages are made by AI and may be inaccurate. This website is experimental, <a href="https://docs.google.com/forms/d/e/1FAIpQLScWcgXUAKuHqcwxjGrpD6-PcsGviH_N6vPG2tgZC6TE9TFwLw/viewform?usp=sf_link">provide feedback here</a></p>
+</body>
+
+<script>
+const messages = [
+    {
+        role: 'assistant',
+        content: 'Hi, my name is Rosie. I can answer questions about Rose course offerings, majors, grad programs, and the student handbook.'
+    },
+];
+
+function sendMessage() {
+	const messageInput = document.getElementById("messageInput");
+	const message = messageInput.value.trim();
+
+	if (message !== "") {
+		renderMessage(message, "message my-message");
+		messageInput.value = "";
+		messages.push({ role: "user", content: message });
+		generateResponse();
+	}
+}
+
+function generateResponse() {
+    const messageElement = renderMessage('Loading...', 'message other-message');
+    let start = Date.now();
+    fetch(`${location.href}generate_response`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ query: messages[messages.length-1].content }),
+    })
+        .then(async function(res) {
+            if (!res.body) throw new Error('No body');
+
+            console.log('First token:', ((Date.now() - start) / 1000).toFixed(2));
+            start = Date.now();
+            let numTokens = 0;
+            // Process the response as it streams in
+            const reader = res.body.getReader();
+            let tokens = '';
+
+            while (true) {
+                let { done, value } = await reader.read();
+                if (done) break;
+                value = new TextDecoder().decode(value);
+                tokens += value;
+                messageElement.textContent = tokens;
+
+                numTokens++;
+                const tokensPerSecond = numTokens / ((Date.now() - start) / 1000);
+                if (numTokens % 20 === 0) console.log(`${tokensPerSecond.toFixed(2)} tok/s`);
+            }
+        });
+}
+
+function renderMessage(message, className) {
+    const messageList = document.getElementById("messageList");
+	const element = document.createElement("p");
+	element.className = className;
+	element.textContent = message;
+	messageList.appendChild(element);
+    return element;
+}
+
+function renderMyMessage(message) {
+	const messageList = document.getElementById("messageList");
+	const element = document.createElement("p");
+	element.className = "message my-message";
+	element.textContent = message;
+	messageList.appendChild(element);
+}
+
+const messageInput = document.getElementById("messageInput");
+messageInput.addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) { // Enter key code
+    	sendMessage();
+	}
+});
+
+renderMessage(messages[0].content, "message other-message");
+</script>
+
+</html>
