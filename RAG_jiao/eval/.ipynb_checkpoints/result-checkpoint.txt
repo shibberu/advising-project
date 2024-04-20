@@ -1,0 +1,3 @@
+bge-1.5 top-3 hit rate: 0.927, top-1 hit rate: 0.898
+bge-1.5 bm2.5 hybrid top-3 hit rate: 0.964, top-1 hit rate: 0.916
+gpt4all top-3 hit rate: 0.888, top-1 hit rate: 0.842

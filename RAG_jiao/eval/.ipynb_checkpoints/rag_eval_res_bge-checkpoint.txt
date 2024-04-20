@@ -1,0 +1,18 @@
+Q: 
+What strategies can academic advisors use to effectively engage with and support students from Generation Z at Rose-Hulman Institute of Technology?
+ data[i].page_content
+
+Q: "What strategies can I use as an academic advisor to support my advisees who may be more comfortable communicating via text messages rather than email?"
+ data[i].page_content
+
+Q: What strategies can you recommend to help students transition from high school to college and maintain their academic success?
+
+ data[i].page_content
+
+Q: 
+What are some ways that students can develop more effective learning strategies at Rose-Hulman in order to achieve their purpose for attending the school?
+ data[i].page_content
+
+Q: What resources do you think would be most helpful for your specific needs as a first-generation student?
+ data[i].page_content
+
