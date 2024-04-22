@@ -1,22 +1,40 @@
 import sys
+sys.path.append('..') # This allows us to import from parent directory
 version = sys.argv[1] # should be 'test' or 'prod'
 
 import waitress
 from flask import Flask, render_template, Response, request
 import requests
-from langchain_community.embeddings import GPT4AllEmbeddings
-from langchain_community.vectorstores import Chroma
 
 from bedrock import stream_response
 
 app = Flask(__name__)
 
-embedding_function = GPT4AllEmbeddings()
-vectorstore = Chroma(embedding_function=embedding_function, persist_directory="./chroma_db")
+from RAG_jiao.jiao_rag import RAG
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
 
-def get_similar_docs(query):
-    embedding = embedding_function.embed_query(query)
-    return [doc.page_content for doc in vectorstore.similarity_search_by_vector(embedding)]
+model_name = "BAAI/bge-base-en-v1.5"
+model_kwargs = {"device": 'cuda:1'}
+encode_kwargs = {"normalize_embeddings": True}
+bge_emb = HuggingFaceBgeEmbeddings(
+    model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
+)
+
+my_rag = RAG(cuda_device='cuda:6')
+my_rag.load_data_from_file('../RAG_jiao/data/new_complete_dataset_credit_replaced.txt', 'full_data')
+print('Dataset loaded')
+
+my_rag.create_dense_vector_index(bge_emb, 'bge_embedding', 'full_data')
+my_rag.create_bm25_index('bm25_retriever', 'full_data_lemma')
+print('Indexes created')
+
+def get_similar_docs(q):
+    res = my_rag.dense_retrieval(q, 'bge_embedding', use_mmr=True)
+    # res1 = my_rag.bm25_retrieval(q, 'bm25_retriever', if_lemmatize=True)
+    # hybrid_res = res + res1
+    hybrid_res = res
+    rerank_res = my_rag.rerank(q, hybrid_res)
+    return [doc[0].page_content for doc in rerank_res]
 
 @app.route('/')
 def index():
