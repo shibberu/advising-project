@@ -11,7 +11,12 @@ from bedrock import stream_response
 app = Flask(__name__)
 
 from RAG_jiao.jiao_rag import RAG
+from RAG_jiao.query_processing import expand_course_code_in_query 
 from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+
+import pickle
+with open('../RAG_jiao/util/course_code_to_name_dict.pkl', 'rb') as f:
+    course_dict = pickle.load(f)
 
 model_name = "BAAI/bge-base-en-v1.5"
 model_kwargs = {"device": 'cuda:1'}
@@ -22,6 +27,7 @@ bge_emb = HuggingFaceBgeEmbeddings(
 
 my_rag = RAG(cuda_device='cuda:6')
 my_rag.load_data_from_file('../RAG_jiao/data/new_complete_dataset_credit_replaced.txt', 'full_data')
+my_rag.load_data_from_file('../RAG_jiao/data/new_complete_dataset_credit_replaced.txt', 'full_data_lemma', content_key='lemma')
 print('Dataset loaded')
 
 my_rag.create_dense_vector_index(bge_emb, 'bge_embedding', 'full_data')
@@ -29,10 +35,10 @@ my_rag.create_bm25_index('bm25_retriever', 'full_data_lemma')
 print('Indexes created')
 
 def get_similar_docs(q):
+    q = expand_course_code_in_query(q, course_dict)
     res = my_rag.dense_retrieval(q, 'bge_embedding', use_mmr=True)
-    # res1 = my_rag.bm25_retrieval(q, 'bm25_retriever', if_lemmatize=True)
-    # hybrid_res = res + res1
-    hybrid_res = res
+    res1 = my_rag.bm25_retrieval(q, 'bm25_retriever', if_lemmatize=True)
+    hybrid_res = res + res1
     rerank_res = my_rag.rerank(q, hybrid_res)
     return [doc[0].page_content for doc in rerank_res]
 

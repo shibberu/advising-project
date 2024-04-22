@@ -9,5 +9,6 @@ langchain_community
 lxml
 nltk
 pypdf
+rank_bm25
 sentence_transformers
 waitress
