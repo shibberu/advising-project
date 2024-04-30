@@ -156,6 +156,26 @@ class RAG():
         del inputs
         return doc_and_score
 
+    def remove_duplicate_doc(self, docs, identity_func=None):
+        '''
+        remove duplicate documents
+        @param identity_func: used to identify a document
+        '''
+        def local_id_func(doc):
+            return doc.metadata['seq_num']
+        if (identity_func == None):
+            identity_func = local_id_func
+        res = []
+        seen = set()
+        for doc in docs:
+            if (identity_func(doc) in seen):
+                pass
+            else:
+                seen.add(identity_func(doc))
+                res.append(doc)
+        return res
+
+
     
     
 # tmp = pd.read_json(path_or_buf='./data/student_hb_HSSA_req_chunk200_overlap20_lemma.jsonl', lines=True)
