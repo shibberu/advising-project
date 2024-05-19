@@ -8,7 +8,7 @@ When the query contains parallel structures like "and" and "or," mistral-7b is m
 
 ### Irrelevant/Unhelpful context affects performance
 It's not always a good idea to feed more context to mistral-7b. When there is too much irrelevant context, it's more likely to hallucinate.
-This is also true if the context is related but not unhelpful. For example:
+This is also true if the context is related but not helpful. For example:
 
 Q: Do I need to take CHEM 111 and CHEM 113 for a second major in civil engineering?
 
