@@ -12,13 +12,13 @@ This is also true if the context is related but not unhelpful. For example:
 
 Q: Do I need to take CHEM 111 and CHEM 113 for a second major in civil engineering?
 
-Context 1:
-  chunk 1: the csv with info about required courses for CE.
+Context 1: <br>
+  chunk 1: the csv with info about required courses for CE. <br>
 
-Context 2:
-  chunk 1: the csv with info about required courses for CE.
-  chunk 2: something that mentions CHEM 111, but is not relevant to the query
-  chunk 3: something that mentions CHEM 111, but is not relevant to the query
+Context 2: <br>
+  chunk 1: the csv with info about required courses for CE. <br>
+  chunk 2: something that mentions CHEM 111, but is not relevant to the query <br>
+  chunk 3: something that mentions CHEM 111, but is not relevant to the query <br>
 
 Mistral-7b will always answer the question correctly with context 1, but not with context 2
 
