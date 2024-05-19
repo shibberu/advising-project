@@ -4,7 +4,7 @@
 Mistral-7b can't tell the difference between some similar concepts. For example, if the context contains only info about Japanese as a minor, but the question is asking about Japanese as a major (which is not a thing here at Rose), it might think that the info it has is about Japanese major and answer the question with that wrong info. 
 
 ### Bad at parallel structures
-When the query contains parallel structures like "and" and "or," mistral-7b is more likely to make mistakes. This is especially true when the parallel phrases are key info, for example, "Do I need to take **CHEM 111 and CHEM 113** for a second major in civil engineering?"
+When the query contains parallel structures like "and" and "or," mistral-7b is more likely to make mistakes. This is especially true when the parallel phrases are key info. For example, "Do I need to take **CHEM 111 and CHEM 113** for a second major in civil engineering?"
 
 ### Irrelevant/Unhelpful context affects performance
 It's not always a good idea to feed more context to mistral-7b. When there is too much irrelevant context, it's more likely to hallucinate.
