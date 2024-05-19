@@ -20,7 +20,7 @@ Context 2: <br>
   chunk 2: something that mentions CHEM 111, but is not relevant to the query <br>
   chunk 3: something that mentions CHEM 111, but is not relevant to the query <br>
 
-Mistral-7b will always answer the question correctly with context 1, but not with context 2
+Mistral-7b will always answer the question correctly with context 1, but not always with context 2
 
 ### About BGE reranker
 It can assign a very low even negative score to a chunk with the most relevant information
