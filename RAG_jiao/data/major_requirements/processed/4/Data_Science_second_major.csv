@@ -1,0 +1,37 @@
+,Requirements for,Data Science,Unnamed: 3,Unnamed: 4,...Catalog Year 2023-2024,Unnamed: 6,"For Data Science as a 2nd major, all courses listed to the left below are required.  If any course listed will not be taken, list the Course Substitution in the column below.
+(X indicates required)"
+0,Student Name:,Insert your name here,,Priority of this major:,,2nd,
+1,Course Requirements,,Course Title,"Cr
+Hr","Term courses were or
+will be taken","Course
+Grade",
+2,Fundamentals,36 credits,,,,,
+3,"NOTE:  These courses can be used to satisfy requirements for another major.  They can also be used to satisfy
+requirements for any minor except the Mathematics minor, for which at most, two of thes courses can be used.",,,,,,
+4,  CSSE 120,,Introduction to Software Development,4 credits,,,X
+5,  CSSE 220,,Object-Oriented Software Development,4 credits,,,X
+6,  CSSE 230,,Data Structures and Algorithm Analysis,4 credits,,,X
+7,  CSSE 333,,Database Systems,4 credits,,,X
+8,  MA 371 or MA 373,,Linear Algebra or Applied Linear Algebra,4 credits,,,X
+9,  MA 381,,Intro to Probability,4 credits,,,X
+10,  MA 382 ,,Intro to Statistics w/Prob ,4 credits,,,X
+11,  CSSE 286 or MA 386,,"Introduction to Machine Learning or 
+Statistical Programming",4 credits,,,X
+12,  PHIL H202,,Business and Engineering Ethics,4 credits,,,X
+13,Advanced,20 credits,,,,,
+14,"NOTE:  These courses can only be used to satisfy technical or free electives within the primary
+major, and cannot be used to satisfy any other requirements for other majors or minors.",,,,,,
+15,  CSSE 413,,Artificial Intelligence,4 credits,,,X
+16,"  CSSE 433 or 
+  CSSE 434",,"Advanced Database Systems or 
+Introduction to the Hadoop Ecosystem",4 credits,,,X
+17,  MA 384,,Data Mining,4 credits,,,X
+18,  MA 415,,Machine Learning,4 credits,,,X
+19,  MA 485,,Applied Regression Analysis,4 credits,,,X
+20,Data Science Electives,16 credits,,,,,
+21,NOTE:  At most 8 of these credit hours can be used to satisfy degree requirements for any other major or minor.,,,,,,
+22,  ,,Data Science Elective,4 credits,,,X
+23,,,Data Science Elective,4 credits,,,X
+24,,,Data Science Elective,4 credits,,,X
+25,,,Data Science Elective,4 credits,,,X
+26,,72 credits, - Data Science Total Credit Hours Required -,72 credits,,,

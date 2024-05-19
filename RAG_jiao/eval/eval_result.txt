@@ -1,0 +1,11 @@
+bge-1.5 top-3 hit rate: 0.927, top-1 hit rate: 0.898
+bge-1.5 bm2.5 hybrid top-3 hit rate: 0.964, top-1 hit rate: 0.916
+gpt4all top-3 hit rate: 0.888, top-1 hit rate: 0.842
+
+Test runs on different chunk sizes
+bge-bm25 hybrid, threshold 45: top-3 hit rate 0.840, top-1 hit rate 0.552
+bge-bm25 hybrid, threshold 55: top-3 hit rate 0.759, top-1 hit rate 0.242
+bge-bm25 hybrid, threshold 65: top-3 hit rate 0.791, top-1 hit rate: 0.407
+bge-bm25 hybrid, threshold 75: top-3 hit rate 0.880, top-1 hit rate 0.673
+bge-bm25 hybrid, threshold 85: top-3 hit rate 0.820, top-1 hit rate 0.308
+bge-bm25 hybrid, threshold 95: top-3 hit rate 0.839, top-1 hit rate 0.345

@@ -54,7 +54,7 @@ class RAG():
             content_key=content_key,
             text_content=False,
             json_lines=json_lines,
-            metadata_func=metadata_function
+            metadata_func=metadata_function,            
         )
 
         self.data[dataset_name] = data_loader.load()

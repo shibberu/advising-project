@@ -1,0 +1,1 @@
+In the test results of semantic chunking of different thresholds, the chunks were not correctly written to the files. However, questions and the test itself was correct.
