@@ -52,7 +52,7 @@ def get_similar_docs(q):
     rerank_res = my_rag.rerank(q, hybrid_res)
 
     # take the top 4 chunks
-    rerank_res = rerank_res[:4]
+    # rerank_res = rerank_res[:4]
     rerank_res = [res[0] for res in rerank_res]
     res_more_context = []
     ## For each semantically chunked chunk, we will also add the chunk following it to the context 
