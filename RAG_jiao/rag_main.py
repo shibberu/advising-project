@@ -161,13 +161,17 @@ class RAG():
         remove duplicate documents
         @param identity_func: used to identify a document
         '''
+        loc_docs = []
+        for doc in docs:
+            if doc != None:
+                loc_docs.append(doc)
         def local_id_func(doc):
             return doc.metadata['seq_num']
         if (identity_func == None):
             identity_func = local_id_func
         res = []
         seen = set()
-        for doc in docs:
+        for doc in loc_docs:
             if (identity_func(doc) in seen):
                 pass
             else:
