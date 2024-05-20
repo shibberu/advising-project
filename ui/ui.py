@@ -57,13 +57,13 @@ def get_similar_docs(q):
     ## For each semantically chunked chunk, we will also add the chunk following it to the context 
     ## semantically chunked chunks are indices 0-1648
     for chunk in rerank_res:
-        if (chunk.metadata['seq_num'] < 1649) :
-            res_more_context.append(chunk)
-            res_more_context.append(my_rag.get_document('full_data', chunk.metadata['seq_num'] + 1))
+        if (chunk[0].metadata['seq_num'] < 1649) :
+            res_more_context.append(chunk[0])
+            res_more_context.append(my_rag.get_document('dataset', chunk[0].metadata['seq_num'] + 1))
         else :
-            res_more_context.append(chunk)
+            res_more_context.append(chunk[0])
     res_more_context = my_rag.remove_duplicate_doc(res_more_context)
-    return [doc[0].page_content for doc in res_more_context]
+    return [doc.page_content for doc in res_more_context]
 
 @app.route('/')
 def index():
