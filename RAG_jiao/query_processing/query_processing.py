@@ -57,6 +57,7 @@ def expand_subject_abbreviation(text):
     subject_abbr_dict['CHEM'] = ' Chemistry CHEM'
     subject_abbr_dict['BIO'] = ' Biology BIO'
     subject_abbr_dict['CHE'] = ' Chemical Engineering CHE'
+    subject_abbr_dict['CPE'] = ' Computer Engineering CPE'
     subject_abbr_dict['CE'] = ' Civil Engineering CE'
     subject_abbr_dict['SE'] = ' Software Engineering SE'
     subject_abbr_dict['ECE'] = ' Electrical Engineering ECE'
