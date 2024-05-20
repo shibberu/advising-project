@@ -41,7 +41,7 @@ def get_similar_docs(q):
     q = expand_subject_abbreviation(q)
 
     # retrieve 3 with each retriever
-    res = my_rag.dense_retrieval(q, 'bge_embedding', use_mmr=True, top_k=3)
+    res = my_rag.dense_retrieval(q, 'bge_embedding', use_mmr=True, top_k=6)
 
     # retrieve 3 with each retriever
     res1 = my_rag.bm25_retrieval(q, 'bm25_retriever', if_lemmatize=True)
@@ -51,8 +51,8 @@ def get_similar_docs(q):
     hybrid_res = my_rag.remove_duplicate_doc(hybrid_res)
     rerank_res = my_rag.rerank(q, hybrid_res)
 
-    # take the top 4 chunks
-    # rerank_res = rerank_res[:4]
+    # choose
+    rerank_res = rerank_res[:6]
     rerank_res = [res[0] for res in rerank_res]
     res_more_context = []
     ## For each semantically chunked chunk, we will also add the chunk following it to the context 
