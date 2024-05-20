@@ -53,15 +53,16 @@ def get_similar_docs(q):
 
     # take the top 4 chunks
     rerank_res = rerank_res[:4]
+    rerank_res = [res[0] for res in rerank_res]
     res_more_context = []
     ## For each semantically chunked chunk, we will also add the chunk following it to the context 
     ## semantically chunked chunks are indices 0-1648
     for chunk in rerank_res:
-        if (chunk[0].metadata['seq_num'] < 1649) :
-            res_more_context.append(chunk[0])
-            res_more_context.append(my_rag.get_document('dataset', chunk[0].metadata['seq_num'] + 1))
+        if (chunk.metadata['seq_num'] < 1649) :
+            res_more_context.append(chunk)
+            res_more_context.append(my_rag.get_document('dataset', chunk.metadata['seq_num'] + 1))
         else :
-            res_more_context.append(chunk[0])
+            res_more_context.append(chunk)
     res_more_context = my_rag.remove_duplicate_doc(res_more_context)
     return [doc.page_content for doc in res_more_context]
 
@@ -81,7 +82,7 @@ def generate_response():
 ---------------------
 {context}
 ---------------------
-Given the context information and not prior knowledge, answer the query. If the context does not contain enough information to answer to query, don't answer. 
+Given the context information and not prior knowledge, answer the query. If the context does not contain enough information to answer to query, don't answer.
 Query: {query}
 Answer:
 """
