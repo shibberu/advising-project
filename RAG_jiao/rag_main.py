@@ -34,6 +34,8 @@ class RAG():
         model = AutoModelForSequenceClassification.from_pretrained('BAAI/bge-reranker-large')
         self.reranker = model.to(torch.device(cuda_device))
         self.reranker.eval()
+        import nltk
+        nltk.download('wordnet')
         from nltk.stem import WordNetLemmatizer
         self.lemmatizer = WordNetLemmatizer()
 

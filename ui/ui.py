@@ -19,7 +19,7 @@ import pickle
 with open('../RAG_jiao/query_processing/course_code_to_name_dict.pkl', 'rb') as f:
     course_dict = pickle.load(f)
 
-CUDA_DEVICE = 'cuda:6'
+CUDA_DEVICE = 'cuda:0'
 model_name = "BAAI/bge-base-en-v1.5"
 model_kwargs = {"device": CUDA_DEVICE}
 encode_kwargs = {"normalize_embeddings": True}
