@@ -2,6 +2,7 @@ db-prod.db
 db-test.db
 log-prod.txt
 log-test.txt
+.env
 
 chroma_db/
 dataset/
